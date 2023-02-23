@@ -14,9 +14,9 @@ public class Student {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long studentId;
 	private String studentName;
-	private String Course;
+	private String course;
 	private Integer numCreds;
-	private float GPA;
+	private float gpa;
 	private char track;
 
 	public Long getStudentId() {
@@ -36,11 +36,11 @@ public class Student {
 	}
 
 	public String getCourse() {
-		return Course;
+		return course;
 	}
 
-	public void setCourse(String course) {
-		Course = course;
+	public void setCourse(String Course) {
+		course = Course;
 	}
 
 	public Integer getNumCreds() {
@@ -52,11 +52,11 @@ public class Student {
 	}
 
 	public float getGPA() {
-		return GPA;
+		return gpa;
 	}
 
 	public void setGPA(float gPA) {
-		GPA = gPA;
+		gpa = gPA;
 	}
 
 	public char getTrack() {
