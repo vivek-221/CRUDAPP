@@ -2,7 +2,8 @@ package com.student.api.controller;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,8 @@ public class RestApiController {
 
 	@Autowired
 	private StudentService studentService;
-
-	private static final Logger logger = Logger.getLogger(Logger.class);
+	private static final Logger logger = LoggerFactory.getLogger(RestApiController.class);
+	
 
 	@GetMapping("/getstudents")
 	public List<Student> fetchStudents() {
@@ -32,7 +33,7 @@ public class RestApiController {
 	@PostMapping("/addstudent")
 	public Student addStudent(@RequestBody Student student) {
 		logger.info("Inside adding student request endpoint");
-	 return studentService.saveStudent(student);
+		return studentService.saveStudent(student);
 	}
 
 	@PutMapping("/updatestudent/{id}")
