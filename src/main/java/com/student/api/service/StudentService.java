@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.student.api.exception.StudentNotFoundException;
 import com.student.api.model.Student;
 import com.student.api.repository.StudentRepository;
 
@@ -27,19 +28,26 @@ public class StudentService {
 
 	public Student updateStudent(Student student, Long studentId) {
 
-		Student studentDetail = studentRepository.findById(studentId).get();
-
-		studentDetail.setStudentName(student.getStudentName());
-		studentDetail.setCourse(student.getCourse());
-		studentDetail.setGPA(student.getGPA());
-		studentDetail.setNumCreds(student.getNumCreds());
-		studentDetail.setTrack(student.getTrack());
+		Student studentDetail = null;
+		try {
+			studentDetail = studentRepository.findById(studentId).orElseThrow(() -> new StudentNotFoundException(
+					"Student with the id => " + studentId + " do not have an old entry to update"));
+			studentDetail.setStudentName(student.getStudentName());
+			studentDetail.setCourse(student.getCourse());
+			studentDetail.setGPA(student.getGPA());
+			studentDetail.setNumCreds(student.getNumCreds());
+			studentDetail.setTrack(student.getTrack());
+		} catch (StudentNotFoundException e) {
+			e.printStackTrace();
+		}
 		return studentRepository.save(studentDetail);
 	}
 
-	public void deleteStudent(Long studentId) {
+	public void deleteStudent(Long studentId) throws StudentNotFoundException {
 
-		studentRepository.deleteById(studentId);
+		Student student = studentRepository.findById(studentId).orElseThrow(() -> new StudentNotFoundException(
+				"Student with the given id => " + studentId + " not exists to delete"));
+		studentRepository.delete(student);
 	}
 
 }

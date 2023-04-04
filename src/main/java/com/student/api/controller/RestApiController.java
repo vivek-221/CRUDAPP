@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.student.api.exception.StudentNotFoundException;
 import com.student.api.model.Student;
 import com.student.api.service.StudentService;
 
@@ -22,7 +23,6 @@ public class RestApiController {
 	@Autowired
 	private StudentService studentService;
 	private static final Logger logger = LoggerFactory.getLogger(RestApiController.class);
-	
 
 	@GetMapping("/getstudents")
 	public List<Student> fetchStudents() {
@@ -43,7 +43,7 @@ public class RestApiController {
 	}
 
 	@DeleteMapping("/deletestudent/{id}")
-	public String deleteStudent(@PathVariable("id") Long studentId) {
+	public String deleteStudent(@PathVariable("id") Long studentId) throws StudentNotFoundException {
 		studentService.deleteStudent(studentId);
 		logger.info("Inside delete student request endpoint");
 		return "Student with ID number " + studentId + " deleted succesfully";
