@@ -13,5 +13,4 @@ public class RestapiApplication {
 		SpringApplication.run(RestapiApplication.class, args);
 		logger.info("Spring boot application started....");
 	}
-
-}
+	}
