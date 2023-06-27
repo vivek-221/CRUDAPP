@@ -32,10 +32,17 @@ public class StudentService {
 		try {
 			studentDetail = studentRepository.findById(studentId).orElseThrow(() -> new StudentNotFoundException(
 					"Student with the id => " + studentId + " do not have an old entry to update"));
-			studentDetail.setStudentName(student.getStudentName());
-			studentDetail.setCourse(student.getCourse());
+
+			if (student.getStudentName() != null) {
+				studentDetail.setStudentName(student.getStudentName());
+			}
+			if (student.getCourse() != null) {
+				studentDetail.setCourse(student.getCourse());
+			}
 			studentDetail.setGPA(student.getGPA());
-			studentDetail.setNumCreds(student.getNumCreds());
+			if (student.getNumCreds() != null) {
+				studentDetail.setNumCreds(student.getNumCreds());
+			}
 			studentDetail.setTrack(student.getTrack());
 		} catch (StudentNotFoundException e) {
 			e.printStackTrace();
@@ -49,5 +56,4 @@ public class StudentService {
 				"Student with the given id => " + studentId + " not exists to delete"));
 		studentRepository.delete(student);
 	}
-
 }
